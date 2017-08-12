@@ -1,3 +1,5 @@
+var express = require('express');
+var path = require('path');
 var serialport = require('serialport');
 var portName = 'COM3';
 var sp = new serialport.SerialPort(portName, {
@@ -9,11 +11,21 @@ var sp = new serialport.SerialPort(portName, {
     parser: serialport.parsers.readline("\r\n")
 });
 
+
 sp.on('data', function(input) {
     
     var streamObject = JSON.stringify({ x : input.substring(6, 12) });
     console.log(streamObject);
     
-    
+
 });
 
+var app = express()
+
+app.get('/', function(req, res) {
+    res.send(streamObject);
+});
+
+app.listen(5000, () => {
+    console.log('Serving at port 5000')
+});    

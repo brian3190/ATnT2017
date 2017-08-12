@@ -4,11 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",    "start": "nodemon server.js"
-   },
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.15.4",
     "nodemon": "^1.11.0",
     "serialport": "^5.0.0",
     "vim": "^0.1.0"
