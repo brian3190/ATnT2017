@@ -1,5 +1,5 @@
 var serialport = require('serialport');
-var portName = 'COM4';
+var portName = 'COM3';
 var sp = new serialport.SerialPort(portName, {
     baudRate: 115200,
     dataBits: 8,
@@ -10,5 +10,10 @@ var sp = new serialport.SerialPort(portName, {
 });
 
 sp.on('data', function(input) {
-    console.log(input);
+    
+    var streamObject = JSON.stringify({ x : input.substring(6, 12) });
+    console.log(streamObject);
+    
+    
 });
+
