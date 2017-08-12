@@ -13,21 +13,26 @@ var sp = new serialport.SerialPort(portName, {
 
 var app = express();
 
-function setJSON() {
-    sp.on('data', function(input) {
-        var streamObject = JSON.parse({ x : input.substring(6, 12) });
-	console.log(streamObject[0]);
-    	return streamObject[0];
-    });
-    setInterval(setJSON(), 1000);
+var json = function updateJSON(x){
+   return x;
 };
 
-var json = setJSON();
+
+//setInterval(function(){
+sp.on('data', function(input) {
+     //var streamObject = JSON.parse({ x : input.substring(6, 12) });
+     var stream = JSON.stringify({ ppm: input.substring(6, 12)});
+     console.log(stream);
+});
+//}, 1000);
+
+
+
 
 app.get('/', function(req, res) {
-    res.send(json);
-});
+    res.send(json)
+})
 
 app.listen(5000, () => {
     console.log('Serving at port 5000')
-});    
+});
