@@ -11,19 +11,21 @@ var sp = new serialport.SerialPort(portName, {
     parser: serialport.parsers.readline("\r\n")
 });
 
+var app = express();
 
-sp.on('data', function(input) {
-    
-    var streamObject = JSON.stringify({ x : input.substring(6, 12) });
-    console.log(streamObject);
-    
+function setJSON() {
+    sp.on('data', function(input) {
+        var streamObject = JSON.parse({ x : input.substring(6, 12) });
+	console.log(streamObject[0]);
+    	return streamObject[0];
+    });
+    setInterval(setJSON(), 1000);
+};
 
-});
-
-var app = express()
+var json = setJSON();
 
 app.get('/', function(req, res) {
-    res.send(streamObject);
+    res.send(json);
 });
 
 app.listen(5000, () => {
